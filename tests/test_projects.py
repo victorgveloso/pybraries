@@ -1,7 +1,7 @@
 import pytest
 from pyexpect import expect
 
-from pybraries.search import Search
+from pybraries.api.searching import SearchingAPI
 
 DEFAULT_PER_PAGE = 30
 MAX_PER_PAGE = 100
@@ -11,7 +11,9 @@ NAME = "pybraries"
 
 @pytest.fixture
 def search():
-    return Search()
+    from pybraries.controller import SearchingController
+    ctrl = SearchingController()
+    return SearchingAPI(ctrl)
 
 
 def expect_correct_project(name, platform, project):
@@ -31,7 +33,7 @@ def test_project(search):
 
 
 def test_project_search(search, monkeypatch):
-    from pybraries.helpers import sess
+    from pybraries.utils.helpers import sess
 
     old_get = sess.get
 

@@ -13,7 +13,7 @@ setup_requirements = ["pytest-runner"]
 
 test_requirements = ["pytest"]
 
-requirements = ["requests>=2", "fire>0.1.1", 'urllib3']
+requirements = ["requests>=2", "fire>0.1.1", 'urllib3', 'jsonpickle']
 
 setup(
     name="pybraries",

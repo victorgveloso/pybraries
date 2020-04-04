@@ -3,7 +3,8 @@ from time import sleep
 
 import pytest
 
-import pybraries
+from pybraries.api import SearchingAPI
+from pybraries.controller import SearchingController
 
 
 # fixture to avoid hitting rate limit
@@ -15,7 +16,8 @@ def wait_a_sec():
 
 # variables for testing
 # put in fixture
-search = pybraries.Search()  # instantiate search api object
+ctrl = SearchingController()
+search = SearchingAPI(ctrl)  # instantiate search api object
 mgr = "pypi"  # package manager name
 pkg = "plotly"  # package name
 pkg2 = "yellowbrick"  # package name

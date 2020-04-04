@@ -1,5 +1,5 @@
 # pagination.py
-from pybraries.helpers import sess
+from pybraries.utils import sess
 
 DEFAULT_PAGE = 1
 DEFAULT_PER_PAGE = 30

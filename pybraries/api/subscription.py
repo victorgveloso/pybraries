@@ -1,14 +1,15 @@
 # subscribe_api.py
 from typing import Any
 
-from pybraries.subscription_helpers import sub_api
 
-
-class Subscribe(object):
+class SubscriptionAPI(object):
     """Class for libraries.io API for changing user's libraries.io subscriptions"""
 
-    def __init__(self):
-        pass
+    def __init__(self, subscription_controller, **kwargs):
+        super().__init__(**kwargs)
+        from pybraries.controller import SubscriptionController
+        assert isinstance(subscription_controller, SubscriptionController), type(subscription_controller)
+        self.controller = subscription_controller
 
     def list_subscribed(self) -> Any:
         """
@@ -17,7 +18,7 @@ class Subscribe(object):
         Returns:
             Dict with info for each package subscribed to at libraries.io.
         """
-        return sub_api("list_subscribed")
+        return self.controller.sub_api("list_subscribed")
 
     def subscribe(self, manager: str, package: str) -> str:
         """
@@ -32,7 +33,7 @@ class Subscribe(object):
         Returns:
             Subscription confirmation message.
         """
-        return str(sub_api("subscribe", manager, package))
+        return str(self.controller.sub_api("subscribe", manager, package))
 
     def check_subscribed(self, manager: str, package: str) -> bool:
         """
@@ -44,7 +45,7 @@ class Subscribe(object):
         Returns:
             True if subscribed to the package indicated, else False.
         """
-        return bool(sub_api("check_subscribed", manager, package))
+        return bool(self.controller.sub_api("check_subscribed", manager, package))
 
     def update_subscribe(self, manager: str, package: str, include_prerelease: bool = True) -> str:
         """
@@ -59,7 +60,7 @@ class Subscribe(object):
         Returns:
             Update confirmation message.
         """
-        return str(sub_api("update_subscribe", manager, package, include_prerelease))
+        return str(self.controller.sub_api("update_subscribe", manager, package, include_prerelease))
 
     def unsubscribe(self, manager: str, package: str) -> str:
         """
@@ -73,4 +74,4 @@ class Subscribe(object):
             Message confirming deleted or deletion unnecessary.
         """
 
-        return str(sub_api("delete_subscribe", manager, package))
+        return str(self.controller.sub_api(action="delete_subscribe", manager=manager, package=package))

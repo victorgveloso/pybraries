@@ -3,17 +3,19 @@ import random
 import pytest
 from pyexpect import expect
 
-from pybraries.search import Search
+from pybraries.api.searching import SearchingAPI
 
 
 @pytest.fixture
 def search():
-    return Search()
+    from pybraries.controller import SearchingController
+    ctrl = SearchingController()
+    return SearchingAPI(ctrl)
 
 
 @pytest.fixture
 def platforms(search):
-    return search.platforms()
+    return search.platform()
 
 
 @pytest.fixture

@@ -1,15 +1,14 @@
-# search.py
+# searching.py
 from typing import Any
 
-from pybraries.search_helpers import search_api
 
-
-class Search(object):
+class SearchingAPI(object):
     """Class for wrapping the libraries.io API for 
     platform, project, repo, and user GET actions"""
 
-    def __init__(self):
-        pass
+    def __init__(self, search_controller, **kwargs):
+        super().__init__(**kwargs)
+        self.controller = search_controller
 
     def platforms(self) -> Any:
         """
@@ -19,7 +18,7 @@ class Search(object):
             List of dicts of platforms with platform info from libraries.io.
         """
 
-        return search_api("platforms")
+        return self.controller.search_api("platforms")
 
     def project(self, platforms: str, name: str) -> Any:
         """
@@ -32,7 +31,7 @@ class Search(object):
             Dict of information about the project from libraries.io.
         """
 
-        return search_api("project", platforms, name)
+        return self.controller.search_api("project", platforms, name)
 
     def project_dependencies(self, platforms: str, project: str, version: str = None) -> Any:
         """
@@ -48,7 +47,7 @@ class Search(object):
             Dict of dependencies for a version of a project from libraries.io.
         """
 
-        return search_api("project_dependencies", platforms, project, version=version)
+        return self.controller.search_api("project_dependencies", platforms, project, version=version)
 
     def project_dependents(self, platforms: str, project: str, version: str = None) -> Any:
         """
@@ -62,7 +61,7 @@ class Search(object):
             List of dicts project dependents from libraries.io.
         """
 
-        return search_api("project_dependents", platforms, project, version=version)
+        return self.controller.search_api("project_dependents", platforms, project, version=version)
 
     def project_dependent_repositories(self, platforms: str, project: str) -> Any:
         """
@@ -75,7 +74,7 @@ class Search(object):
             List of dicts of dependent repositories from libraries.io.
         """
 
-        return search_api("project_dependent_repositories", platforms, project)
+        return self.controller.search_api("project_dependent_repositories", platforms, project)
 
     def project_contributors(self, platforms: str, project: str) -> Any:
         """
@@ -88,7 +87,7 @@ class Search(object):
             List of dicts of project contributor info from libraries.io.
         """
 
-        return search_api("project_contributors", platforms, project)
+        return self.controller.search_api("project_contributors", platforms, project)
 
     def project_sourcerank(self, platforms: str, project: str) -> Any:
         """
@@ -101,7 +100,7 @@ class Search(object):
             Dict of sourcerank info response from libraries.io.
         """
 
-        return search_api("project_sourcerank", platforms, project)
+        return self.controller.search_api("project_sourcerank", platforms, project)
 
     def project_usage(self, platforms: str, project: str) -> Any:
         """
@@ -114,7 +113,7 @@ class Search(object):
             Dict with info about usage from libraries.io.
         """
 
-        return search_api("project_usage", platforms, project)
+        return self.controller.search_api("project_usage", platforms, project)
 
     def project_search(self, **kwargs):
         """
@@ -133,7 +132,7 @@ class Search(object):
             List of dicts of project info from libraries.io.
         """
 
-        return search_api("special_project_search", **kwargs)
+        return self.controller.search_api("special_project_search", **kwargs)
 
     def repository(self, host: str, owner: str, repo: str) -> Any:
         """
@@ -147,7 +146,7 @@ class Search(object):
             List of dicts of info about a repository from libraries.io.
         """
 
-        return search_api("repository", host, owner, repo)
+        return self.controller.search_api("repository", host, owner, repo)
 
     def repository_dependencies(self, host: str, owner: str, repo: str) -> Any:
         """
@@ -161,7 +160,7 @@ class Search(object):
             Dict of repo dependency info from libraries.io.
         """
 
-        return search_api("repository_dependencies", host, owner, repo)
+        return self.controller.search_api("repository_dependencies", host, owner, repo)
 
     def repository_projects(self, host: str, owner: str, repo: str) -> Any:
         """
@@ -175,7 +174,7 @@ class Search(object):
             List of dicts of projects referencing a repo from libraries.io.
         """
 
-        return search_api("repository_projects", host, owner, repo)
+        return self.controller.search_api("repository_projects", host, owner, repo)
 
     def user(self, host: str, user: str) -> Any:
         """
@@ -187,7 +186,7 @@ class Search(object):
         Returns:
         Dict of info about user from libraries.io.
         """
-        return search_api("user", host, user)
+        return self.controller.search_api("user", host, user)
 
     def user_repositories(self, host: str, user: str) -> Any:
         """
@@ -199,7 +198,7 @@ class Search(object):
         Returns:
             List of dicts with info about user repos from libraries.io.
         """
-        return search_api("user_repositories", host, user)
+        return self.controller.search_api("user_repositories", host, user)
 
     def user_projects(self, host: str, user: str) -> Any:
         """
@@ -211,7 +210,7 @@ class Search(object):
         Returns:
             List of dicts of project info from libraries.io.
         """
-        return search_api("user_projects", host, user)
+        return self.controller.search_api("user_projects", host, user)
 
     def user_projects_contributions(self, host: str, user: str) -> Any:
         """
@@ -223,7 +222,7 @@ class Search(object):
         Returns:
             List of dicts with user project contribution info from libraries.io.
         """
-        return search_api("user_projects_contributions", host, user)
+        return self.controller.search_api("user_projects_contributions", host, user)
 
     def user_repository_contributions(self, host: str, user: str) -> Any:
         """
@@ -235,7 +234,7 @@ class Search(object):
         Returns:
             (list): list of dicts response from libraries.io
         """
-        return search_api("user_repositories_contributions", host, user)
+        return self.controller.search_api("user_repositories_contributions", host, user)
 
     def user_dependencies(self, host, user):
         """
@@ -249,4 +248,4 @@ class Search(object):
         Returns:
             List of dicts with user project dependency info.
         """
-        return search_api("user_dependencies", host, user)
+        return self.controller.search_api("user_dependencies", host, user)

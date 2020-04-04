@@ -1,7 +1,4 @@
-import pytest
 from pyexpect import expect
-
-from pybraries.subscribe import Subscribe
 
 
 def to_be_a_list_of(self, subtype):
@@ -35,16 +32,3 @@ def has_same_size_as(self, target):
 
 expect.has_same_size_as = expect.to_have_same_size_as = has_same_size_as
 
-
-# unsubscribe from pandas
-@pytest.fixture
-def pre_sub():
-    a = Subscribe()
-    a.subscribe("pypi", "pandas")
-
-
-# subscribe to pandas
-@pytest.fixture
-def pre_unsub():
-    b = Subscribe()
-    b.unsubscribe("pypi", "pandas")
